@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 
 const scene = new THREE.Scene();
 
@@ -18,4 +19,12 @@ const renderer = new THREE.WebGLRenderer({
   canvas
 })
 renderer.setSize(window.innerWidth,window.innerHeight)
-renderer.render(scene,camera)
+const controls = new OrbitControls(camera,canvas);
+controls.enableDamping = true;
+controls.autoRotate = false;
+const renderloop = () =>{
+  controls.update();
+  renderer.render(scene,camera)
+  window.requestAnimationFrame(renderloop)
+}
+renderloop();
