@@ -4,33 +4,22 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
 const scene = new THREE.Scene();
 
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-const cubeMaterial = new THREE.MeshBasicMaterial({color: "red"})
+const cubeMaterial = new THREE.MeshBasicMaterial({color: "red",wireframe: true});
 const cubeMesh = new THREE.Mesh(cubeGeometry,cubeMaterial)
-cubeMesh.position.y= -1;
-const cubeMesh2 = new THREE.Mesh(cubeGeometry,cubeMaterial)
-cubeMesh2.position.x=2;
-const cubeMesh3 = new THREE.Mesh(cubeGeometry,cubeMaterial)
-cubeMesh3.position.x=-2;
-// scene.add(cubeMesh);
+scene.add(cubeMesh);
+
+cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
+
 
 // const position = new THREE.Vector3(1,1,2);
 // cubeMesh.position.copy(position);
 
-const group = new THREE.Group();
-group.position.setScalar(1)
-group.add(cubeMesh);
-group.add(cubeMesh2);
-group.add(cubeMesh3);
-scene.add(group);
-
-// cubeMesh.scale.set(3,2,2)
-
-const axesHelper = new THREE.AxesHelper(5);
-
+const axesHelper = new THREE.AxesHelper(10);
+cubeMesh.add(axesHelper)
 // adding a camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1 , 30);
 camera.position.z = 5;
-scene.add(axesHelper);
+// scene.add(axesHelper);
 scene.add(camera);
 
 
