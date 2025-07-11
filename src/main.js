@@ -8,20 +8,34 @@ const cubeMaterial = new THREE.MeshBasicMaterial({color: "red"})
 const cubeMesh = new THREE.Mesh(cubeGeometry,cubeMaterial)
 scene.add(cubeMesh);
 
+const position = new THREE.Vector3(1,1,2);
+cubeMesh.position.copy(position);
+// cubeMesh.scale.x = 3;
+cubeMesh.scale.set(3,2,2)
+
+// cubeMesh.position.y = 1;
+// cubeMesh.position.x = 1;
+// cubeMesh.position.z = 1;
+
+const axesHelper = new THREE.AxesHelper(5);
+
 // adding a camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1 , 30);
 camera.position.z = 5;
+scene.add(axesHelper);
 scene.add(camera);
 
 
 const canvas = document.querySelector('canvas.threejs')
 const renderer = new THREE.WebGLRenderer({
-  canvas
+  canvas,
+  antialias: true
 })
 renderer.setSize(window.innerWidth,window.innerHeight)
 const controls = new OrbitControls(camera,canvas);
 controls.enableDamping = true;
-controls.autoRotate = false;
+// controls.autoRotate = true;
+// controls.rotateSpeed = 100;
 const renderloop = () =>{
   controls.update();
   renderer.render(scene,camera)
