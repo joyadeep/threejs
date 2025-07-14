@@ -8,11 +8,7 @@ const cubeMaterial = new THREE.MeshBasicMaterial({color: "red",wireframe: true})
 const cubeMesh = new THREE.Mesh(cubeGeometry,cubeMaterial)
 scene.add(cubeMesh);
 
-cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
-
-
-// const position = new THREE.Vector3(1,1,2);
-// cubeMesh.position.copy(position);
+// cubeMesh.rotation.x = THREE.MathUtils.degToRad(45)
 
 const axesHelper = new THREE.AxesHelper(10);
 cubeMesh.add(axesHelper)
@@ -31,7 +27,16 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth,window.innerHeight)
 const controls = new OrbitControls(camera,canvas);
 controls.enableDamping = true;
+
+const clock = new THREE.Clock();
+let previousTime = 0;
+
 const renderloop = () =>{
+  const currentTime = clock.getElapsedTime();
+  const delat = currentTime - previousTime;
+  previousTime = currentTime;
+  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delat *20
+  // cubeMesh.rotation.x += THREE.MathUtils.degToRad(3) * delat *20
   controls.update();
   renderer.render(scene,camera)
   window.requestAnimationFrame(renderloop)
